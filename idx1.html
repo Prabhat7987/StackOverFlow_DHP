@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stack Overflow Trends</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Smooth Fade-In Animation */
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(-20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Glowing Effect */
+        @keyframes glow {
+            0% { text-shadow: 0 0 5px #f1c40f, 0 0 10px #f39c12, 0 0 15px #e67e22; }
+            50% { text-shadow: 0 0 10px #f1c40f, 0 0 20px #f39c12, 0 0 30px #e67e22; }
+            100% { text-shadow: 0 0 5px #f1c40f, 0 0 10px #f39c12, 0 0 15px #e67e22; }
+        }
+
+        /* Page Styling */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+            color: #ffffff;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Heading Style */
+        h1 {
+            font-size: 3em;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #f1c40f;
+            animation: glow 2s infinite alternate;
+        }
+
+        h3 {
+            font-size: 1.4em;
+            font-weight: 400;
+            margin-bottom: 30px;
+            color: #f8e71c;
+            opacity: 0.9;
+        }
+
+        /* Chart Container */
+        .chart-container {
+            width: 90%;
+            max-width: 900px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 20px;
+            font-size: 0.9em;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔥 Stack Overflow Insights 🔥</h1>
+    <h3>Tracking the Evolution of Top 10 Technology Tags Over the Years</h3>
+    
+    <div class="chart-container">
+        <canvas id="trendChart"></canvas>
+    </div>
+
+    <p class="footer">Designed with ❤️ for Data Enthusiasts</p>
+
+    <script>
+        async function fetchChartData() {
+            try {
+                const response = await fetch('http://127.0.0.1:5000/api/data');
+                const data = await response.json();
+                
+                const colors = [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(199, 199, 199, 1)',
+                    'rgba(83, 102, 255, 1)',
+                    'rgba(40, 159, 64, 1)',
+                    'rgba(230, 102, 255, 1)'
+                ];
+                
+                data.datasets.forEach((dataset, index) => {
+                    dataset.borderColor = colors[index % colors.length];
+                    dataset.backgroundColor = colors[index % colors.length].replace('1)', '0.2)');
+                });
+                
+                const ctx = document.getElementById('trendChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'line',
+                    data: data,
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                labels: { color: '#ffffff' }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                ticks: { color: '#ffffff' },
+                                grid: { color: 'rgba(255, 255, 255, 0.2)' }
+                            },
+                            y: {
+                                ticks: { color: '#ffffff' },
+                                grid: { color: 'rgba(255, 255, 255, 0.2)' }
+                            }
+                        }
+                    }
+                });
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        }
+        
+        fetchChartData();
+    </script>
+</body>
+</html>
