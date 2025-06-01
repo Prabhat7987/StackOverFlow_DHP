@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"> 
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stack Overflow Trends</title>
+    <title>Stack Overflow Trends</title> 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         /* Smooth Fade-In Animation */
@@ -12,18 +12,18 @@
             100% { opacity: 1; transform: translateY(0); }
         }
 
-        /* Glowing Effect */
-        @keyframes glow {
+        /* Glowing Effect */ 
+        @keyframes glow { 
             0% { text-shadow: 0 0 5px #f1c40f, 0 0 10px #f39c12, 0 0 15px #e67e22; }
             50% { text-shadow: 0 0 10px #f1c40f, 0 0 20px #f39c12, 0 0 30px #e67e22; }
             100% { text-shadow: 0 0 5px #f1c40f, 0 0 10px #f39c12, 0 0 15px #e67e22; }
         }
 
         /* Page Styling */
-        body {
+        body { 
             font-family: 'Poppins', sans-serif;
             background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
-            color: #ffffff;
+            color: #ffffff; 
             text-align: center;
             margin: 0;
             padding: 20px;
@@ -49,7 +49,7 @@
             margin-bottom: 30px;
             color: #f8e71c;
             opacity: 0.9;
-        }
+        } 
 
         /* Chart Container */
         .chart-container {
@@ -71,19 +71,19 @@
     </style>
 </head>
 <body>
-    <h1>🔥 Stack Overflow Insights 🔥</h1>
+    <h1>🔥 Stack Overflow Insights 🔥</h1> 
     <h3>Tracking the Evolution of Top 10 Technology Tags Over the Years</h3>
     
     <div class="chart-container">
         <canvas id="trendChart"></canvas>
-    </div>
+    </div> 
 
     <p class="footer">Designed with ❤️ for Data Enthusiasts</p>
 
     <script>
         async function fetchChartData() {
             try {
-                const response = await fetch('http://127.0.0.1:5000/api/data');
+                const response = await fetch('https://prabhat7987.pythonanywhere.com/api/data');
                 const data = await response.json();
                 
                 const colors = [
